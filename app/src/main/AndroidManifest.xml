@@ -1,7 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pjuu.droidotter"
-    android:versionCode="1"
-    android:versionName="0.1">
+    package="com.pjuu.droidotter">
 
     <!-- As this is a web application we only need internet access and to be able to check
      the status of the internet connection -->
