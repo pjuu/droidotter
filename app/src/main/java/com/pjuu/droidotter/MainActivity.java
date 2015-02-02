@@ -1,13 +1,14 @@
 package com.pjuu.droidotter;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+    private WebView webView;
     private ProgressBar prgrsBar;
 
     public Boolean hasConnection() {
@@ -26,6 +28,34 @@ public class MainActivity extends Activity {
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public void onBackPressed (){
+
+        if (webView.isFocused() && webView.canGoBack()) {
+            webView.goBack();
+        }
+        else {
+            super.onBackPressed();
+            finish();
+        }
+    }
+    //catching back key to take back if history exists doesnot finish Activity
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+            webView.goBack();
+            return true;
+        }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public class PjuuWebChromeClient extends WebChromeClient {
+
     }
 
     public class PjuuWebViewClient extends WebViewClient {
@@ -74,11 +104,12 @@ public class MainActivity extends Activity {
         /*
          * WebView stuff
          */
-        WebView webView = (WebView)findViewById(R.id.webview);
+        webView = (WebView)findViewById(R.id.webview);
         WebSettings browserSettings = webView.getSettings();
         // We need Javascript on the site
         browserSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new PjuuWebViewClient());
+        webView.setWebChromeClient(new PjuuWebChromeClient());
         // The URL is stored in values/strings.xml
         webView.loadUrl(getString(R.string.app_url));
 
