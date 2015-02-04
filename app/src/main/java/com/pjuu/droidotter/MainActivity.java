@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if (hasConnection()) {
-                if (url.contains("pjuu.com")) {
+                if (url.contains(getResources().getString(R.string.url_check))) {
                     view.loadUrl(url);
                 } else {
                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
