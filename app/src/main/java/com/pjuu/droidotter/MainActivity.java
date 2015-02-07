@@ -8,8 +8,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.os.Environment;
+import android.os.Parcelable;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,46 +22,18 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends Activity {
 
     private WebView webView;
     private ProgressBar prgrsBar;
 
-    public Boolean hasConnection() {
-        // Get a ConnectivityManager
-        ConnectivityManager cm =
-                (ConnectivityManager)getApplicationContext()
-                        .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-    }
-
-    public void onBackPressed (){
-
-        if (webView.isFocused() && webView.canGoBack()) {
-            webView.goBack();
-        }
-        else {
-            super.onBackPressed();
-            finish();
-        }
-    }
-    //catching back key to take back if history exists doesnot finish Activity
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-            webView.goBack();
-            return true;
-        }
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(true);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+    // Hostname extracted from R.string.app_url
+    private String hostname;
 
     public class PjuuWebChromeClient extends WebChromeClient {
 
@@ -68,13 +44,18 @@ public class MainActivity extends Activity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if (hasConnection()) {
-                if (url.contains(getResources().getString(R.string.url_check))) {
+                // Pass the hostname from the requested URL
+                String request_hostname = Uri.parse(url).getHost();
+                if (request_hostname.equals(hostname)) {
+                    // This is a Pjuu URL so open it in the WebView
                     view.loadUrl(url);
                 } else {
+                    // This is a non Pjuu URL. Open it in the default browser
                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(i);
                 }
             } else {
+                // Doesn't look like you are connected to the internet
                 Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_SHORT).show();
             }
             return true;
@@ -100,6 +81,26 @@ public class MainActivity extends Activity {
         }
     }
 
+    public Boolean hasConnection() {
+        // Get a ConnectivityManager
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    @Override
+    public void onBackPressed (){
+        if (webView.isFocused() && webView.canGoBack()) {
+            webView.goBack();
+        }
+        else {
+            super.onBackPressed();
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,12 +114,18 @@ public class MainActivity extends Activity {
         /*
          * WebView stuff
          */
+        // Get the hostname from the URL defined in the resources
+        // This will let us check all requests to redirect to the browser or not.
+        hostname = Uri.parse(getString(R.string.app_url)).getHost();
+
         webView = (WebView)findViewById(R.id.webview);
         WebSettings browserSettings = webView.getSettings();
         // We need Javascript on the site
         browserSettings.setJavaScriptEnabled(true);
+
         webView.setWebViewClient(new PjuuWebViewClient());
         webView.setWebChromeClient(new PjuuWebChromeClient());
+
         // The URL is stored in values/strings.xml
         webView.loadUrl(getString(R.string.app_url));
 
