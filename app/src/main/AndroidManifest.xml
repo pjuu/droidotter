@@ -2,13 +2,12 @@
     package="com.pjuu.droidotter">
 
     <!-- As this is a web application we only need internet access and to be able to check
-     the status of the internet connection -->
+     the status of the internet connection. We also need to save files to upload from camera-->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk android:minSdkVersion="15"
-        android:targetSdkVersion="15"
+        android:targetSdkVersion="21"
         android:maxSdkVersion="21" />
 
     <application android:allowBackup="true"
