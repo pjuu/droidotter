@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -176,6 +178,21 @@ public class MainActivity extends Activity {
         }
     }
 
+    public class WebAppInterface {
+        Context mContext;
+
+        /** Instantiate the interface and set the context */
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        /** Hide the image upload button is we are in KitKat (doesn't work) */
+        @JavascriptInterface
+        public boolean hideImageUpload() {
+            return Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT;
+        }
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +209,8 @@ public class MainActivity extends Activity {
         WebSettings browserSettings = webView.getSettings();
         // We need Javascript on the site
         browserSettings.setJavaScriptEnabled(true);
+        // Inject out Java to Javascript stuff as "Android"
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
 
         webView.setWebViewClient(new PjuuWebViewClient());
         webView.setWebChromeClient(new PjuuWebChromeClient());
