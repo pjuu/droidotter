@@ -215,6 +215,9 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(new PjuuWebViewClient());
         webView.setWebChromeClient(new PjuuWebChromeClient());
 
+        // Remove the cache on application startup
+        webView.clearCache(true);
+
         // The URL is stored in values/strings.xml
         webView.loadUrl(getString(R.string.app_url));
 
