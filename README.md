@@ -1,5 +1,7 @@
 # Droidotter
 
+[![Join the chat at https://gitter.im/pjuu/droidotter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pjuu/droidotter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ```
 Pjuu is under very active development at this early stage in its life. A lot
 may change between versions until we are happy with it :)
