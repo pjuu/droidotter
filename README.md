@@ -9,7 +9,7 @@ may change between versions until we are happy with it :)
 
 A small Android WebView application for [Pjuu](https://github.com/pjuu/pjuu).
 
-This is an open source project released under the GNU AGPLv3 license. See LICENSE for more details or visit the official GNU page at http://www.gnu.org/licenses/agpl-3.0.html.
+This is an open source project released under the MIT license. See LICENSE for more details or visit http://opensource.org/licenses/MIT.
 
 ### About
 
