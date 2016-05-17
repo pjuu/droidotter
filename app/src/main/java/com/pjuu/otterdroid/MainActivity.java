@@ -1,4 +1,4 @@
-package com.pjuu.droidotter;
+package com.pjuu.otterdroid;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -211,6 +211,9 @@ public class MainActivity extends Activity {
         browserSettings.setJavaScriptEnabled(true);
         // Inject out Java to Javascript stuff as "Android"
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setUseWideViewPort(true);
 
         webView.setWebViewClient(new PjuuWebViewClient());
         webView.setWebChromeClient(new PjuuWebChromeClient());
@@ -219,10 +222,24 @@ public class MainActivity extends Activity {
         webView.clearCache(true);
 
         // The URL is stored in values/strings.xml
-        webView.loadUrl(getString(R.string.app_url));
+        if (savedInstanceState == null) {
+            webView.loadUrl(getString(R.string.app_url));
+        }
 
         // Progress bar
         prgrsBar = (ProgressBar)findViewById(R.id.progress_bar);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        webView.saveState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        webView.restoreState(savedInstanceState);
     }
 
 }

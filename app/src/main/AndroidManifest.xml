@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pjuu.droidotter">
+    package="com.pjuu.otterdroid">
 
     <!-- As this is a web application we only need internet access and to be able to check
      the status of the internet connection. We also need to save files to upload from camera-->
