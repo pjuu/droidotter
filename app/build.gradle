@@ -8,8 +8,8 @@ android {
         applicationId "com.pjuu.otterdroid"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 6
-        versionName "0.4"
+        versionCode 7
+        versionName "0.4.1"
     }
     buildTypes {
         release {
