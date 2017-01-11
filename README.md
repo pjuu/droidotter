@@ -26,3 +26,7 @@ We are open to all pull requests. Please not that we are not Android developers,
 ### Security
 
 All software has bugs in, Pjuu is no different. These may have security implications. If you find one that you suspect could allow you to do something you shouldn't be able to please do not post it as an issue on Github. We would really appreciate it if you could send an e-mail to security@pjuu.com with the relevant details.
+
+### Naming inconsistencies
+
+This app and it's repository is called Droidotter however the packages on the play store, f-droid and within the source code refer to it as otterdroid. This is due to a disk corruption and a failure to back up our application key used to sign new releases. The apps name was forced to be changed.
