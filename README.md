@@ -2,6 +2,11 @@
 
 [![Join the chat at https://gitter.im/pjuu/droidotter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pjuu/droidotter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+<a href="https://f-droid.org/repository/browse/?fdid=com.pjuu.otterdroid" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" height="80"/></a>
+<a href="https://play.google.com/store/apps/details?id=com.pjuu.otterdroid" target="_blank">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height="80"/></a>
+
 ```
 Pjuu is under very active development at this early stage in its life. A lot
 may change between versions until we are happy with it :)
