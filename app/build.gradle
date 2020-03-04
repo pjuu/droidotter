@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.pjuu.otterdroid"
         minSdkVersion 15
-        targetSdkVersion 22
-        versionCode 7
-        versionName "0.4.1"
+        targetSdkVersion 29
+        versionCode 8
+        versionName "0.4.2"
     }
     buildTypes {
         release {
@@ -20,5 +20,5 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

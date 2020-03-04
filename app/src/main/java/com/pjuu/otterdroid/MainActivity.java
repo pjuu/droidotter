@@ -45,13 +45,13 @@ public class MainActivity extends Activity {
         }
 
         // file upload callback (Android 3.0 (API level 11) -- Android 4.0 (API level 15)) (hidden method)
-        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+        void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
             openFileChooser(uploadMsg, acceptType, null);
         }
 
         // file upload callback (Android 4.1 (API level 16) -- Android 4.3 (API level 18)) (hidden method)
         @SuppressWarnings("unused")
-        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+        void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
             openFileInput(uploadMsg, null);
         }
 
